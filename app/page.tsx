@@ -4,6 +4,10 @@ import Experience from "@/components/Experience";
 import Education from "@/components/Education";
 import Projects from "@/components/Projects";
 
+export const metadata = {
+  title: "VanzTyl",
+};
+
 export default function Home() {
   return (
     <div className="flex flex-col w-full" id="top">
