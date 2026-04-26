@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core background - Abyssal, blue-tinted black */
+  --color-charcoal-950: #09090b;
+  --color-charcoal-900: #0f0f13;
+  --color-charcoal-800: #1a1a24;
+  --color-charcoal-700: #2a2a35;
+
+  /* Accent - High-voltage neon violet */
+  --color-lightning: #B24BF3;
+  --color-lightning-hover: #C87BFF;
+  --color-lightning-glow: #8A00E6;
+  --color-lightning-muted: rgba(178, 75, 243, 0.15);
+
+  /* Typography layers */
+  --color-foreground-primary: #FFFFFF;
+  --color-foreground-secondary: #A1A1AA;
+  --color-foreground-tertiary: #71717A;
+}
