@@ -48,14 +48,21 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
 
             {/* Form Base (900) with Inset Inputs (950) */}
-            <form className="p-6 space-y-5 bg-charcoal-900" onSubmit={(e) => e.preventDefault()}>
+            <form 
+            name="contact"
+            method="POST"
+            className="p-6 space-y-5 bg-charcoal-900" 
+            data-netlify="true" 
+            autoComplete="off">
+              <input type="hidden" name="form-name" value="contact" />
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
                   <User className="w-4 h-4" /> Name
                 </label>
                 <input
                   type="text"
-                  placeholder="John Doe"
+                  name="name"
+                  placeholder="Please enter your name here"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all"
                 />
               </div>
@@ -66,7 +73,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </label>
                 <input
                   type="email"
-                  placeholder="john@example.com"
+                  name="email"
+                  placeholder="Please enter your e-mail here"
+                  autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all"
                 />
               </div>
@@ -76,8 +85,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   <MessageSquare className="w-4 h-4" /> Message
                 </label>
                 <textarea
+                  name="message"
                   rows={4}
                   placeholder="How can we work together?"
+                  autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all resize-none"
                 />
               </div>
