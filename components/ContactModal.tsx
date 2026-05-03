@@ -9,11 +9,13 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
-  // Fix: Added AJAX submission handler required for Netlify Forms in Next.js
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
+    
+    // Package the form data and manually append the Netlify form name
     const formData = new FormData(form);
+    formData.append("form-name", "contact");
 
     try {
       await fetch("/", {
@@ -31,7 +33,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <AnimatePresence>
         <div className={`fixed inset-0 z-100 flex items-center justify-center px-4 pointer-events-auto ${isOpen ? "flex" : "hidden"}`}>
-          {/* Blurred Backdrop - This obscures the site behind the modal */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -40,7 +41,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             className="absolute inset-0 bg-charcoal-950/80 backdrop-blur-md"
           />
 
-          {/* Modal Content - Elevated solid base (900) to contrast against global background (950) */}
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -48,7 +48,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-lg bg-charcoal-900 border border-charcoal-700 shadow-2xl shadow-charcoal-950 rounded-2xl overflow-hidden isolate"
           >
-            {/* Header - Lighter top edge (800) */}
             <div className="flex items-center justify-between p-6 bg-charcoal-800 border-b border-charcoal-700">
               <h2 className="text-xl font-semibold text-white flex items-center gap-2">
                 <div className="relative flex w-2 h-2">
@@ -65,16 +64,13 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </button>
             </div>
 
-            {/* Form Base (900) with Inset Inputs (950) */}
+            {/* Form Base - Cleaned of Netlify attributes */}
             <form 
-            name="contact"
-            method="POST"
-            action="/"
-            onSubmit={handleSubmit}
-            className="p-6 space-y-5 bg-charcoal-900" 
-            data-netlify="true" 
-            autoComplete="off">
-              <input type="hidden" name="form-name" value="contact" />
+              name="contact"
+              onSubmit={handleSubmit}
+              className="p-6 space-y-5 bg-charcoal-900" 
+              autoComplete="off"
+            >
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
                   <User className="w-4 h-4" /> Name
