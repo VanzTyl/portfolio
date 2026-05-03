@@ -12,17 +12,16 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    
-    // Package the form data and manually append the Netlify form name
     const formData = new FormData(form);
-    formData.append("form-name", "contact");
 
     try {
-      await fetch("/", {
+      // POST exactly to the static HTML file we created in the public folder
+      await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as any).toString(),
       });
+      
       form.reset();
       onClose();
     } catch (error) {
@@ -64,13 +63,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </button>
             </div>
 
-            {/* Form Base - Cleaned of Netlify attributes */}
             <form 
               name="contact"
               onSubmit={handleSubmit}
               className="p-6 space-y-5 bg-charcoal-900" 
               autoComplete="off"
             >
+              {/* Required to tell Netlify which form this payload belongs to */}
+              <input type="hidden" name="form-name" value="contact" />
+              
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
                   <User className="w-4 h-4" /> Name
@@ -79,6 +80,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   type="text"
                   name="name"
                   placeholder="Please enter your name here"
+                  required
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all"
                 />
               </div>
@@ -91,6 +93,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   type="email"
                   name="email"
                   placeholder="Please enter your e-mail here"
+                  required
                   autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all"
                 />
@@ -104,6 +107,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   name="message"
                   rows={4}
                   placeholder="How can we work together?"
+                  required
                   autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all resize-none"
                 />
