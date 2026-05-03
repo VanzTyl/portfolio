@@ -9,13 +9,14 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  // 1. Add the fetch logic to actually send the data
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     try {
-      // POST exactly to the static HTML file we created in the public folder
+      // Point this directly to the static file in your public folder
       await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31,7 +32,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   return (
     <AnimatePresence>
-        <div className={`fixed inset-0 z-100 flex items-center justify-center px-4 pointer-events-auto ${isOpen ? "flex" : "hidden"}`}>
+      {isOpen && (
+        <div className="fixed inset-0 z-100 flex items-center justify-center px-4 pointer-events-auto">
+          {/* Blurred Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -40,6 +43,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             className="absolute inset-0 bg-charcoal-950/80 backdrop-blur-md"
           />
 
+          {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -47,6 +51,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-lg bg-charcoal-900 border border-charcoal-700 shadow-2xl shadow-charcoal-950 rounded-2xl overflow-hidden isolate"
           >
+            {/* Header */}
             <div className="flex items-center justify-between p-6 bg-charcoal-800 border-b border-charcoal-700">
               <h2 className="text-xl font-semibold text-white flex items-center gap-2">
                 <div className="relative flex w-2 h-2">
@@ -63,24 +68,27 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </button>
             </div>
 
+            {/* 2. Remove data-netlify="true" and attach the handleSubmit function */}
             <form 
-              name="contact"
-              onSubmit={handleSubmit}
+              name="contact" 
+              method="POST" 
+              autoComplete="off" 
               className="p-6 space-y-5 bg-charcoal-900" 
-              autoComplete="off"
+              onSubmit={handleSubmit}
             >
-              {/* Required to tell Netlify which form this payload belongs to */}
               <input type="hidden" name="form-name" value="contact" />
               
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
                   <User className="w-4 h-4" /> Name
                 </label>
+                {/* 3. Add name="name" and required */}
                 <input
                   type="text"
                   name="name"
-                  placeholder="Please enter your name here"
                   required
+                  placeholder="Please enter your name here"
+                  autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all"
                 />
               </div>
@@ -89,11 +97,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <label className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
                   <Mail className="w-4 h-4" /> Email
                 </label>
+                {/* 3. Add name="email" and required */}
                 <input
                   type="email"
                   name="email"
-                  placeholder="Please enter your e-mail here"
                   required
+                  placeholder="Please enter your e-mail here"
                   autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all"
                 />
@@ -103,11 +112,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <label className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
                   <MessageSquare className="w-4 h-4" /> Message
                 </label>
+                {/* 3. Add name="message" and required */}
                 <textarea
                   name="message"
+                  required
                   rows={4}
                   placeholder="How can we work together?"
-                  required
                   autoComplete="off"
                   className="w-full px-4 py-3 bg-charcoal-950 border border-charcoal-800 rounded-xl text-white placeholder:text-charcoal-700 focus:outline-none focus:border-lightning focus:ring-1 focus:ring-lightning transition-all resize-none"
                 />
@@ -123,6 +133,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </form>
           </motion.div>
         </div>
+      )}
     </AnimatePresence>
   );
 }
