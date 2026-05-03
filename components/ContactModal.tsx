@@ -9,10 +9,28 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  // Fix: Added AJAX submission handler required for Netlify Forms in Next.js
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      form.reset();
+      onClose();
+    } catch (error) {
+      console.error("Form submission failed:", error);
+    }
+  };
+
   return (
     <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center px-4 pointer-events-auto">
+        <div className={`fixed inset-0 z-100 flex items-center justify-center px-4 pointer-events-auto ${isOpen ? "flex" : "hidden"}`}>
           {/* Blurred Backdrop - This obscures the site behind the modal */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -51,6 +69,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             <form 
             name="contact"
             method="POST"
+            action="/"
+            onSubmit={handleSubmit}
             className="p-6 space-y-5 bg-charcoal-900" 
             data-netlify="true" 
             autoComplete="off">
@@ -103,7 +123,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </form>
           </motion.div>
         </div>
-      )}
     </AnimatePresence>
   );
 }
