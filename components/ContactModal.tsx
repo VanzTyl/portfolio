@@ -17,7 +17,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
     try {
       // Point this directly to the static file in your public folder
-      await fetch("/__forms.html", {
+      await fetch("/contact-form.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as any).toString(),
