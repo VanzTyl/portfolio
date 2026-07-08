@@ -66,18 +66,18 @@ const PROJECT_CATEGORIES = [
 const PROJECTS = {
   academic: [
     {
-      id: "naviguide",
-      name: "NaviGuide",
-      shortDescription: "Android training app for aeronautics students to practice aircraft marshalling.",
+      id: "latik-delights-pos",
+      name: "Latik Delights POS System",
+      shortDescription: "Web-based POS and inventory management system for a local delicacy business.",
       fullDescription:
-        "Android training app helping aeronautics students practice aircraft marshalling procedures, built in Unity with a MediaPipe model integrated for real-time gesture recognition to simulate marshalling signals.",
-      stack: ["Unity", "C#", "MediaPipe", "Android"],
+        "Web-based point-of-sale and inventory management system built for a local delicacy business, with sales recording, product management, and inventory monitoring, deployed via XAMPP.",
+      stack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
       tags: [
-        { label: "Mobile App", tagColor: "blue" },
-        { label: "AI", tagColor: "indigo" },
+        { label: "Web App", tagColor: "blue" },
+        { label: "POS System", tagColor: "orange" },
       ],
-      role: "Developer — Unity/C# app logic and MediaPipe gesture-recognition integration.",
-      year: "2025", // TODO: confirm exact year
+      role: "Developer — client-commissioned build for Latik Delights.",
+      year: "2024", // TODO: confirm exact year
       status: "Public",
       links: { source: "#", demo: null, docs: null }, // TODO: add repo/demo links
       imgCount: 2,
@@ -147,18 +147,19 @@ const PROJECTS = {
   ],
   commissioned: [
     {
-      id: "latik-delights-pos",
-      name: "Latik Delights POS System",
-      shortDescription: "Web-based POS and inventory management system for a local delicacy business.",
+      id: "naviguide",
+      name: "NaviGuide",
+      shortDescription: "Android training app for aeronautics students to practice aircraft marshalling.",
       fullDescription:
-        "Web-based point-of-sale and inventory management system built for a local delicacy business, with sales recording, product management, and inventory monitoring, deployed via XAMPP.",
-      stack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+        "Android training app helping aeronautics students practice aircraft marshalling procedures, built in Unity with a MediaPipe model integrated for real-time gesture recognition to simulate marshalling signals.",
+      stack: ["Unity", "C#", "MediaPipe", "Android"],
       tags: [
-        { label: "Client Work", tagColor: "red" },
-        { label: "POS System", tagColor: "orange" },
+        { label: "Client-Commissioned", tagColor: "green" },
+        { label: "Mobile App", tagColor: "blue" },
+        { label: "AI", tagColor: "indigo" },
       ],
-      role: "Developer — client-commissioned build for Latik Delights.",
-      year: "2024", // TODO: confirm exact year
+      role: "Developer — Unity/C# app logic and MediaPipe gesture-recognition integration.",
+      year: "2025", // TODO: confirm exact year
       status: "Public",
       links: { source: "#", demo: null, docs: null }, // TODO: add repo/demo links
       imgCount: 2,
